@@ -3,15 +3,16 @@ import { ArrowDownToLine, ArrowUpFromLine, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-export const LastStep = ({url}) => {
+export const LastStep = ({url, loading}) => {
 
     const filename = `Vellum-${new Date().getTime()}`
 
   return (
     <div className="flex items-center gap-4 mt-4">
       <button
+        disabled={loading}
         onClick={()=>downloadPhoto(url, filename)}
-        className="px-3 py-1.5 bg-white text-black font-medium mt-4 uppercase flex items-center justify-center flex-1 gap-2"
+        className="px-3 py-1.5 bg-white text-black font-medium mt-4 uppercase flex items-center justify-center flex-1 gap-2 disabled:opacity-50"
         href={url}
       >
         Descargar <ArrowDownToLine />
