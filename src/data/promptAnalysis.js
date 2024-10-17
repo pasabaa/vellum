@@ -1,6 +1,6 @@
 export const promptAnalysis = `Analyze the provided next image and create a short, impactful horror story based on it. Follow these strict guidelines:
 
-1. Begin with an # symbol markdown for the title.
+1. Begin with an ## symbol markdown for the title.
 2. Write 2-4 paragraphs maximum.
 3. Each paragraph should be concise and build tension.
 4. The story must be in Spanish.

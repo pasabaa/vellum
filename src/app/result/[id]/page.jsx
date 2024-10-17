@@ -8,6 +8,7 @@ import { CldImage } from "next-cloudinary";
 import { useRef, useState, useEffect } from "react";
 import { Loading } from "@/components/Loading";
 import { halloweenCostumePrompts } from "@/data/costumes";
+import ImageAnalysis from "@/components/ImageAnalysis";
 
 export default function ResultPage({ params }) {
   const id = params.id;
@@ -17,8 +18,10 @@ export default function ResultPage({ params }) {
 
   const [currentOption, setCurrentOption] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(null);
+  const [storyGenerated, setStoryGenerated] = useState(false);
 
   const handleCurrentOption = (option, index) => {
+    setStoryGenerated(false);
     setCurrentOption(option);
     setCurrentIndex(index);
     setLoading(true);
@@ -29,6 +32,12 @@ export default function ResultPage({ params }) {
       setLoading(true);
     }
   }, [currentOption]);
+
+  const handleGenerateStory = () => {
+    if (imgRef.current?.src) {
+      setStoryGenerated(true);
+    }
+  };
 
   return (
     <Container>
@@ -58,14 +67,14 @@ export default function ResultPage({ params }) {
       ) : (
         <p>No se ha subido ninguna imagen</p>
       )}
-      {imageResource && <LastStep loading={loading} url={imgRef?.current?.src} />}
+      {imageResource && <LastStep loading={loading} url={imgRef?.current?.src} onGenerateStory={handleGenerateStory} />}
       <div className="mt-8 mb-16">
         <h2 className="font-medium text-lg mb-4">Más disfraces</h2>
         <div className="flex flex-wrap gap-2.5 h-28 overflow-y-scroll">
           {halloweenCostumePrompts?.map((costume, i) => (
             <button
               disabled={loading}
-              className={`transition-colors p-2 bg-neutral-900 text-sm ${
+              className={`transition-colors hover:bg-white hover:text-black p-2 bg-neutral-900 text-sm ${
                 currentIndex === i && 'bg-white text-black font-medium'
               } disabled:opacity-50`}
               onClick={() => handleCurrentOption(costume, i)}
@@ -77,6 +86,8 @@ export default function ResultPage({ params }) {
           ))}
         </div>
       </div>
+
+      <ImageAnalysis imageUrl={imgRef?.current?.src} storyGenerated={storyGenerated}/>
      
     </Container>
   );
