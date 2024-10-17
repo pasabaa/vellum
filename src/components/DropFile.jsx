@@ -41,7 +41,6 @@ export const DropFile = () => {
       const data = await response.json();
       setImageResource(data);
       setSuccess(true);
-      console.log("Upload success:", data);
     } catch (err) {
       setError("Hubo un problema al subir la imagen. Intenta de nuevo.");
     } finally {
