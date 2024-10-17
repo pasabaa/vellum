@@ -1,3 +1,5 @@
+"use client";
+import { useEffect, useRef } from "react";
 import { Container } from "@/components/Container";
 import { ChevronRight } from "lucide-react";
 import { Enriqueta } from "next/font/google";
@@ -10,10 +12,29 @@ const enriqueta = Enriqueta({
 });
 
 export default function Home() {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play();
+    }
+  }, []);
+
   return (
     <Container>
-      <Image className="absolute top-0 left-0 w-full h-full object-cover -z-10" alt="cover" src={'https://res.cloudinary.com/dvuqzso8k/image/upload/v1727287428/mundo-mitico/3348fba4-30bf-4cb0-90da-b75039f2d66e_ua9tll.png'} width={1920} height={1080}/>
-      <div className="bg-gradient-to-t from-neutral-950 via-neutral-950/80 to-neutral-950 absolute top-0 left-0 w-full h-full -z-10"/>
+      <video
+        className="absolute top-0 left-0 w-full h-full object-cover -z-10"
+        alt="cover"
+        src={
+          "https://cdn.pixabay.com/video/2022/10/22/136030-764371264_large.mp4"
+        }
+        width={1920}
+        height={1080}
+        autoPlay
+        muted
+        loop
+      />
+      <div className="bg-gradient-to-t from-neutral-950 via-neutral-950/80 to-neutral-950 absolute top-0 left-0 w-full h-full -z-10" />
       <h1 className={`text-5xl text-white ${enriqueta?.className}`}>Vellum</h1>
       <div className="text-neutral-400 mt-4 space-y-4">
         <p>
@@ -35,6 +56,17 @@ export default function Home() {
         >
           Comenzar <ChevronRight />
         </Link>
+      </div>
+
+      <div className="absolute bottom-0 right-0 p-4 text-xs text-neutral-400">
+        Video by{" "}
+        <a className="underline-offset-4 hover:underline" target="_blank" rel="noopener noreferrer" href="https://pixabay.com/users/syeda_amna_zaidi-30785083/?utm_source=link-attribution&utm_medium=referral&utm_campaign=video&utm_content=136030">
+          Syeda Zaidi
+        </a>{" "}
+        from{" "}
+        <a className="underline-offset-4 hover:underline" target="_blank" rel="noopener noreferrer" href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=video&utm_content=136030">
+          Pixabay
+        </a>
       </div>
     </Container>
   );

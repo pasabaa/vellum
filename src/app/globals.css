@@ -28,7 +28,7 @@ p {
 
 .h-container {
   height: 100svh;
-  max-height: calc(100svh - 128px);
+  max-height: calc(100svh - 64px);
 }
 
 .loader {
