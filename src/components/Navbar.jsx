@@ -1,10 +1,6 @@
 "use client";
-import { awards } from "@/data/awards";
 import {
   Award,
-  Trophy,
-  Volume,
-  Volume1,
   Volume2,
   VolumeOff,
 } from "lucide-react";
