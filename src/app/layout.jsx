@@ -4,6 +4,7 @@ import { defaultURL } from "@/utils";
 import { ImageProvider } from "@/context/ImageContext";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { Toaster } from 'react-hot-toast';
 
 const jost = Jost({
   subsets: ["latin"],
@@ -55,6 +56,7 @@ export default function RootLayout({ children }) {
             {children}
           </main>
         </ImageProvider>
+        <Toaster />
         <Footer/>
       </body>
     </html>
