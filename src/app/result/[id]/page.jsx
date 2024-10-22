@@ -80,7 +80,7 @@ export default function ResultPage({ params }) {
       )}
       {imageResource && <LastStep loading={loading} url={imgRef?.current?.src} onGenerateStory={handleGenerateStory} />}
       <div className="mt-8 mb-16">
-        <h2 className="font-medium text-lg mb-4">Más disfraces</h2>
+        <h2 className="font-medium text-lg mb-4">Más Disfraces</h2>
         <div className="flex flex-wrap gap-2.5 h-28 overflow-y-scroll">
           {halloweenCostumePrompts?.map((costume, i) => (
             <button
