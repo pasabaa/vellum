@@ -4,12 +4,22 @@ import React from "react";
 import { NextStep } from "./NextStep";
 
 export const CostumeSelect = () => {
+
   const [currentOption, setCurrentOption] = React.useState(null);
   const [currentIndex, setCurrentIndex] = React.useState(null);
+  const [customCostume, setCustomCostume] = React.useState(null);
 
   const handleCurrentOption = (option, index) => {
     setCurrentOption(option);
     setCurrentIndex(index);
+  };
+
+  const handleCustomCostume = (e) => {
+    e.preventDefault();
+    setCurrentOption(null);
+    setCurrentIndex(null);
+    if(e?.target?.value?.trim() === '') return setCustomCostume(null);
+    setCustomCostume(e?.target?.value + ' halloween costume');
   };
 
   return (
@@ -29,9 +39,17 @@ export const CostumeSelect = () => {
         ))}
       </div>
       {
-        currentOption && (
+        !currentOption && (
+          <div>
+        <h2 className="font-semibold text-2xl mb-4">Personalizado</h2>
+        <input onChange={handleCustomCostume} className="p-2 bg-neutral-900 w-full" placeholder="Programador Java..." type="text" />
+      </div>
+        )
+      }
+      {
+        currentOption || customCostume && (
 
-          <NextStep name={"Resultado"} url={`/result/${encodeURIComponent(currentOption?.value)}`} />
+          <NextStep name={"Resultado"} url={`/result/${encodeURIComponent(currentOption?.value || customCostume)}`} />
         )
       }
     </>
