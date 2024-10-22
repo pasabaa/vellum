@@ -21,11 +21,22 @@ export default function ResultPage({ params }) {
   const [storyGenerated, setStoryGenerated] = useState(false);
 
   const handleCurrentOption = (option, index) => {
+
+    const completedCostumes = localStorage.getItem('completedCostumes') || 0;
+
+    localStorage.setItem('completedCostumes', Number(completedCostumes) + 1);
+
     setStoryGenerated(false);
     setCurrentOption(option);
     setCurrentIndex(index);
     setLoading(true);
   };
+
+  useEffect(() => {
+    const completedCostumes = localStorage.getItem('completedCostumes') || 0;
+
+    localStorage.setItem('completedCostumes', Number(completedCostumes) + 1);
+  }, [id])
 
   useEffect(() => {
     if (currentOption) {

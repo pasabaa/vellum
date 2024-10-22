@@ -4,7 +4,6 @@ import React from "react";
 import { NextStep } from "./NextStep";
 
 export const CostumeSelect = () => {
-
   const [currentOption, setCurrentOption] = React.useState(null);
   const [currentIndex, setCurrentIndex] = React.useState(null);
   const [customCostume, setCustomCostume] = React.useState(null);
@@ -18,8 +17,9 @@ export const CostumeSelect = () => {
     e.preventDefault();
     setCurrentOption(null);
     setCurrentIndex(null);
-    if(e?.target?.value?.trim() === '') return setCustomCostume(null);
-    setCustomCostume(e?.target?.value + ' halloween costume');
+    const value = e.target.value?.trim();
+    if (value === '') return setCustomCostume(null);
+    setCustomCostume(value + ' halloween costume');
   };
 
   return (
@@ -28,7 +28,7 @@ export const CostumeSelect = () => {
         {halloweenCostumePrompts?.map((costume, i) => (
           <button
             className={`transition-colors p-2 bg-neutral-900 hover:bg-white hover:text-black h-24 text-sm snap-start ${
-              currentIndex === i && 'bg-white text-black font-medium'
+              currentIndex === i ? 'bg-white text-black font-medium' : ''
             }`}
             onClick={() => handleCurrentOption(costume, i)}
             key={i}
@@ -38,20 +38,20 @@ export const CostumeSelect = () => {
           </button>
         ))}
       </div>
-      {
-        !currentOption && (
-          <div>
-        <h2 className="font-semibold text-2xl mb-4">Personalizado</h2>
-        <input onChange={handleCustomCostume} className="p-2 bg-neutral-900 w-full" placeholder="Programador Java..." type="text" />
-      </div>
-        )
-      }
-      {
-        currentOption || customCostume && (
-
-          <NextStep name={"Resultado"} url={`/result/${encodeURIComponent(currentOption?.value || customCostume)}`} />
-        )
-      }
+      
+      {!currentOption && (
+        <div>
+          <h2 className="font-semibold text-2xl mb-4">Personalizado</h2>
+          <input onChange={handleCustomCostume} className="p-2 bg-neutral-900 w-full" placeholder="Programador Java..." type="text" />
+        </div>
+      )}
+      
+      {(currentOption || customCostume) && (
+        <NextStep
+          name={"Resultado"}
+          url={`/result/${encodeURIComponent(currentOption?.value || customCostume)}`}
+        />
+      )}
     </>
   );
 };
