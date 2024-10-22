@@ -67,7 +67,7 @@ export const Awards = () => {
                 {award.icon}
               </span>
               <div>
-                <p>{award.title}</p>
+                <p className="font-semibold">{award.title}</p>
                 <p className="text-sm text-neutral-400">{award.description}</p>
               </div>
             </div>
