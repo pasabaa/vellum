@@ -53,7 +53,7 @@ export const Awards = () => {
 
   return (
     <motion.div {...animationAwards} className="absolute inset-0 mt-12 p-4 bg-zinc-950/95 backdrop-blur-sm min-h-min ml-auto">
-      <div className="grid grid-cols-1 gap-4">
+      <div className="grid grid-cols-1 gap-4 max-w-screen-sm mx-auto w-full">
         {awards?.map((award, index) => {
 
           const isUnlocked = completedCostumes >= award.umbral;
