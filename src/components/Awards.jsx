@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
 import { animationAwards } from "@/data/animation";
 import toast from 'react-hot-toast';
-import { Award } from "lucide-react";
 
 const notify = (text, iconAward) => toast(text, {
     duration: 4000,
