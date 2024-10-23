@@ -1,6 +1,10 @@
 "use client";
 import {
   Award,
+  GalleryHorizontal,
+  GalleryThumbnails,
+  GalleryVertical,
+  Image,
   Volume2,
   VolumeOff,
 } from "lucide-react";
@@ -55,6 +59,10 @@ export const Navbar = () => {
         Vellum
       </Link>
       <div className="flex items-center gap-2 relative">
+      <Link className="underline-offset-4 hover:underline" href={"/gallery"}>
+        Gallery
+      </Link>
+      <span className="text-neutral-500">|</span>
         <button onClick={handleShowAwards}>
           <Award  className={`${showAwards ? 'stroke-white' : 'stroke-neutral-500'} transition-colors`} size={20} />
         </button>
