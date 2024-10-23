@@ -60,7 +60,7 @@ export const Navbar = () => {
       </Link>
       <div className="flex items-center gap-2 relative">
       <Link className="underline-offset-4 hover:underline" href={"/gallery"}>
-        Gallery
+        Galería
       </Link>
       <span className="text-neutral-500">|</span>
         <button onClick={handleShowAwards}>
