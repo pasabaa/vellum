@@ -1,4 +1,4 @@
-import { Flame, Palette, Sparkles, Wand, WandSparkles } from "lucide-react";
+import { Cloud, Code, Flame, Palette, Sparkles, Wand, WandSparkles } from "lucide-react";
 
 export const awards = [
     {
@@ -30,6 +30,6 @@ export const awards = [
       description: "¡Impresionante! Has creado 50 disfraces. Tu magia brilla por sí sola.",
       umbral: 50,
       icon: <Sparkles />
-    }
+    },
   ];
   

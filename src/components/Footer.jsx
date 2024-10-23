@@ -41,7 +41,7 @@ export const Footer = () => {
             rel="noopener noreferrer"
             href="https://www.hetzz.com/"
           >
-            htezz Blog
+            hetzz Blog
           </a>
           <a
             className="link hover:underline underline-offset-4"
