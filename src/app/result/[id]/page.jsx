@@ -9,12 +9,15 @@ import { useRef, useState, useEffect } from "react";
 import { Loading } from "@/components/Loading";
 import { halloweenCostumePrompts } from "@/data/costumes";
 import ImageAnalysis from "@/components/ImageAnalysis";
+import Gallery from "@/components/Gallery";
 
 export default function ResultPage({ params }) {
   const id = params.id;
   const imgRef = useRef(null);
   const { imageResource } = useImage();
   const [loading, setLoading] = useState(true);
+  const [loadingShare, setLoadingShare] = useState(false);
+  const [successShare, setSuccessShare] = useState(false);
 
   const [currentOption, setCurrentOption] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(null);
@@ -26,6 +29,8 @@ export default function ResultPage({ params }) {
 
     localStorage.setItem('completedCostumes', Number(completedCostumes) + 1);
 
+    setLoadingShare(false);
+    setSuccessShare(false);
     setStoryGenerated(false);
     setCurrentOption(option);
     setCurrentIndex(index);
@@ -50,6 +55,46 @@ export default function ResultPage({ params }) {
     }
   };
 
+  const onUploadTransformedImage = async () => {
+
+    setLoadingShare(true);
+
+    if (!imgRef.current?.src) {
+      setLoadingShare(false);
+      console.error("No image source found.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", imgRef.current.src);
+    formData.append(
+      "upload_preset",
+      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET_SHARE
+    );
+    formData.append("folder", "phantomlens/share");
+
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al subir la imagen a Cloudinary");
+      }
+
+      const data = await response.json();
+      console.log("Imagen subida exitosamente:", data);
+      setSuccessShare(true);
+    } catch (error) {
+      console.error("Error al subir imagen:", error);
+    } finally {
+      setLoadingShare(false);
+    }
+  };
   return (
     <Container>
       <Header title={"Resultado"} />
@@ -78,7 +123,7 @@ export default function ResultPage({ params }) {
       ) : (
         <p>No se ha subido ninguna imagen</p>
       )}
-      {imageResource && <LastStep loading={loading} url={imgRef?.current?.src} onGenerateStory={handleGenerateStory} />}
+      {imageResource && <LastStep loading={loading} url={imgRef?.current?.src} onGenerateStory={handleGenerateStory} onUploadTransformedImage={onUploadTransformedImage} loadingShare={loadingShare} successShare={successShare} />}
       <div className="mt-8 mb-16">
         <h2 className="font-medium text-lg mb-4">Más Disfraces</h2>
         <div className="flex flex-wrap gap-2.5 h-28 overflow-y-scroll">
@@ -99,6 +144,8 @@ export default function ResultPage({ params }) {
       </div>
 
       <ImageAnalysis imageUrl={imgRef?.current?.src} storyGenerated={storyGenerated}/>
+
+      <Gallery successShare={successShare}/>
      
     </Container>
   );

@@ -2,14 +2,11 @@ import { downloadPhoto } from "@/utils";
 import {
   ArrowDownToLine,
   ArrowUpFromLine,
-  ChevronRight,
-  NotebookPen,
-  Pencil,
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-export const LastStep = ({ url, loading, onGenerateStory }) => {
+export const LastStep = ({ url, loading, onGenerateStory, onUploadTransformedImage, loadingShare, successShare }) => {
   const filename = `Vellum-${new Date().getTime()}`;
 
   return (
@@ -30,13 +27,21 @@ export const LastStep = ({ url, loading, onGenerateStory }) => {
           Subir Otra <ArrowUpFromLine />
         </Link>
       </div>
-      <button
+      {/* <button
         onClick={onGenerateStory}
         disabled={loading}
         className="px-3 py-1.5 border border-white font-medium uppercase disabled:opacity-50"
       >
         Generar Historia
+      </button> */}
+      <button
+        onClick={onUploadTransformedImage}
+        disabled={loading || successShare}
+        className={`px-3 py-1.5 border border-white font-medium uppercase disabled:opacity-50`}
+      >
+        {loadingShare ? "Compartiendo..." : "Compartir con la Comunidad"}
       </button>
+      <p>{successShare && "¡Gracias, compartido con éxito!"}</p>
     </div>
   );
 };
