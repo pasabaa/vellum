@@ -1,5 +1,4 @@
 import "./globals.css";
-import { GoogleAnalytics } from '@next/third-parties/google'
 import { Jost } from "next/font/google";
 import { defaultURL } from "@/utils";
 import { ImageProvider } from "@/context/ImageContext";
@@ -60,7 +59,6 @@ export default function RootLayout({ children }) {
         <Toaster />
         <Footer/>
       </body>
-      <GoogleAnalytics gaId="G-JG8HP9HJGR" />
     </html>
   );
 }
